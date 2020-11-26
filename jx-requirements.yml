@@ -1,0 +1,35 @@
+cluster:
+  clusterName: "prod-gke-ndtech-k8s-cluster"
+  environmentGitOwner: "jjhegedus"
+  environmentGitPublic: true
+  project: "jjh1-289322"
+  provider: gke
+  zone: "us-central1"
+gitops: true
+environments:
+- key: dev
+- key: staging
+- key: production
+ingress:
+  domain: ""
+  externalDNS: false
+  tls:
+    email: "jeff@22ndtech.com"
+    enabled: false
+    production: false
+kaniko: true
+secretStorage: local
+storage:
+  logs:
+    enabled: false
+    url: ""
+  reports:
+    enabled: false
+    url: ""
+  repository:
+    enabled: false
+    url: ""
+versionStream:
+  ref: "master"
+  url: https://github.com/jenkins-x/jenkins-x-versions.git
+webhook: lighthouse

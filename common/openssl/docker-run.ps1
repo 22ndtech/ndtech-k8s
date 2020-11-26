@@ -1,0 +1,1 @@
+docker run --rm -v ${PWD}:/usr/src -v C:/data/openssl-certs:/openssl-certs -e NDTECH_K8S_MODE="debug" -it --entrypoint /bin/sh ndtech-openssl:latest

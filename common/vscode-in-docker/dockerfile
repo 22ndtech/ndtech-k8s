@@ -1,0 +1,33 @@
+FROM ubuntu
+LABEL maintainer="admin@22ndtech.com"
+
+WORKDIR /work
+
+# Install curl
+RUN apt-get update \
+ && apt-get install -y curl
+
+# install vs code from a debian package in the repo
+COPY vscode.deb ./
+RUN apt install -y ./vscode.deb
+
+RUN apt-get install libx11-xcb-dev -y
+RUN apt-get install -y libxcb-dri3-0
+RUN apt-get install -y libasound2
+
+# RUN apt-get install -y libxcb-randr0-dev
+# RUN apt-get install -y libxcb-xtest0-dev
+# RUN apt-get install -y libxcb-xinerama0-dev
+# RUN apt-get install -y libxcb-shape0-dev
+# RUN apt-get install -y libxcb-xkb-dev
+
+# set the display variables
+ENV LIBGL_DRI3_DISABLE=1
+ENV DONT_PROMPT_WSL_INSTALL=1
+
+
+#CMD code
+COPY entrypoint.bash /usr/bin/entrypoint.bash
+# ENTRYPOINT /bin/bash /usr/bin/entrypoint.bash
+
+ENTRYPOINT [ "/bin/bash", "/usr/bin/entrypoint.bash" ]

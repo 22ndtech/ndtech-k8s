@@ -1,0 +1,1 @@
+docker build --force-rm -f "tools.dockerfile" -t ndtech-k8s-digital-ocean-tools:latest --build-arg CONTEXT_PATH=/root .

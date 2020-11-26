@@ -1,0 +1,21 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: example-scram-mongodb
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "4.2.6"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: <username>
+      db: <authentication-database>
+      passwordSecretRef:
+        name: <db-user-secret>
+      roles:
+        - name: <role-1>
+          db: <role-1-database>
+        - name: <role-2>
+          db: <role-2-database>

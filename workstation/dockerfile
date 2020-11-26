@@ -1,0 +1,6 @@
+FROM 22ndtech/vscode 
+LABEL maintainer="admin@22ndtech.com"
+
+WORKDIR /work
+
+ENTRYPOINT [ "/bin/bash", "/usr/bin/entrypoint.bash" ]

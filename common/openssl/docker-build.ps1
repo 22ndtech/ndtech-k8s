@@ -1,0 +1,1 @@
+docker build --force-rm -f "dockerfile" -t ndtech-openssl --build-arg CONTEXT_PATH=/root .

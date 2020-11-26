@@ -1,0 +1,47 @@
+FROM ubuntu
+LABEL maintainer="Jeff@22ndtech.com"
+WORKDIR /root
+
+ENV AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID \
+    ENV AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY \
+    ENV AWS_DEFAULT_REGION $AWS_DEFAULT_REGION \
+    ENV NDTECH_K8S_MODE ${NDTECH_K8S_MODE} \
+    ENV RELATIVE_PROCESSING_PATH ${RELATIVE_PROCESSING_PATH}
+
+RUN \
+    # update
+    apt-get update -y \
+    # upgrade
+    && apt-get -y upgrade \
+    # install pre-requisites
+    && apt-get install -y curl \
+    && apt-get install -y zip \
+    && apt-get install -y unzip \
+    && apt-get install -y python \
+    && apt-get install -y git \
+    && apt-get install -y wget \
+      # install aws-cli
+    && cd /usr/src \
+    && mkdir aws-cli \
+    && cd aws-cli \
+    && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" \
+    && unzip awscli-bundle.zip \
+    && ./awscli-bundle/install -b /usr/local/bin/aws \
+    # install terraform
+    && cd /root \
+    && curl "https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip" -o "terraform_0.12.29_linux_amd64.zip" \
+    && unzip terraform_0.12.29_linux_amd64.zip \
+    && mv terraform /usr/local/bin \
+    # install kubectl
+     && cd /root \
+    && curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && mv kubectl /usr/local/bin \
+    && chmod +x /usr/local/bin/kubectl \
+    # install metrics in kubernetes
+    && mkdir k8s-metrics \
+    && cd k8s-metrics \
+    && wget -O v0.3.6.tar.gz https://codeload.github.com/kubernetes-sigs/metrics-server/tar.gz/v0.3.6 && tar -xzf v0.3.6.tar.gz
+
+COPY . .
+
+ENTRYPOINT ["/root/execute.sh"]

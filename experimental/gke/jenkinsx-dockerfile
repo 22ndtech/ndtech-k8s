@@ -1,0 +1,75 @@
+FROM ubuntu
+LABEL maintainer="Jeff@22ndtech.com"
+
+ARG CONTEXT_PATH="/root"
+
+ENV NDTECH_K8S_MODE ${NDTECH_K8S_MODE} \
+ENV RELATIVE_PROCESSING_PATH ${RELATIVE_PROCESSING_PATH} \
+ENV CLOUDSDK_PYTHON_SITEPACKAGES 1 \
+ENV GOOGLE_APPLICATION_CREDENTIALS /ndtech-k8s-admin-key.json \
+ENV CONTEXT_PATH="${CONTEXT_PATH}"
+
+WORKDIR "${CONTEXT_PATH}"
+
+RUN \
+    # update
+    apt-get update -y \
+    # upgrade
+    && apt-get -y upgrade \
+    # install pre-requisites
+    && apt-get install -y curl \
+    && apt-get install -y zip \
+    && apt-get install -y unzip \
+    && apt-get install -y python \
+    && apt-get install -y git \
+    && apt-get install -y wget \
+    && echo "starting install gcp-cli" \
+    && curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" \
+    && python get-pip.py \
+    && pip install --user "cryptography>=2.2.0" \
+    # install aws-cli
+    && cd "${CONTEXT_PATH}" \
+    && mkdir aws-cli \
+    && cd aws-cli \
+    && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" \
+    && unzip awscli-bundle.zip \
+    && ./awscli-bundle/install -b /usr/local/bin/aws \
+    # install gcp-cli
+    && cd "${CONTEXT_PATH}" \
+    && mkdir gcp-cli \
+    && cd gcp-cli \
+    && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-309.0.0-linux-x86_64.tar.gz \
+    && tar -zxvf google-cloud-sdk-309.0.0-linux-x86_64.tar.gz google-cloud-sdk \
+    # install terraform
+    && cd /root \
+    && curl "https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip" -o "terraform_0.12.29_linux_amd64.zip" \
+    && unzip terraform_0.12.29_linux_amd64.zip \
+    && mv terraform /usr/local/bin \
+    # install kubectl
+     && cd "${CONTEXT_PATH}" \
+    && curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && mv kubectl /usr/local/bin \
+    && chmod +x /usr/local/bin/kubectl \
+    # install metrics in kubernetes
+    && cd "${CONTEXT_PATH}" \
+    && mkdir k8s-metrics \
+    && cd k8s-metrics \
+    && wget -O v0.3.6.tar.gz https://codeload.github.com/kubernetes-sigs/metrics-server/tar.gz/v0.3.6 && tar -xzf v0.3.6.tar.gz \
+    # install helm
+    && cd "${CONTEXT_PATH}" \
+    && mkdir helm \
+    && cd helm \
+    && curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 \
+    && chmod 700 get_helm.sh \
+    && ./get_helm.sh
+
+RUN \
+echo "new" \
+&& apt-get install -y sudo
+
+COPY . .
+
+ENV JX_VALUE_ADMINUSER_PASSWORD="${JX_VALUE_ADMINUSER_PASSWORD}"
+
+# neither ENTRYPOINT nor CMD can use the replacement syntax for some reason but it needs to match the context
+ENTRYPOINT "${CONTEXT_PATH}/jenkinsx-execute.sh"

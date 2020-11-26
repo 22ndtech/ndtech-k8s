@@ -1,0 +1,1 @@
+kubectl get csr rob-authentication -o jsonpath='{.status.certificate}' | base64 --decode > ./rob.crt

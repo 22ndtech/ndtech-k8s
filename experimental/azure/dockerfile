@@ -1,0 +1,58 @@
+FROM mcr.microsoft.com/azure-cli
+LABEL maintainer="admin@22ndtech.com"
+WORKDIR /root
+
+ARG CONTEXT_PATH_ARG="default-value"
+RUN echo "CONTEXT_PATH_ARG = ${CONTEXT_PATH_ARG}"
+
+ENV CONTEXT_PATH="$CONTEXT_PATH_ARG"
+
+RUN echo "CONTEXT_PATH = ${CONTEXT_PATH}"
+
+ENV NDTECH_K8S_MODE \
+    ENV JX_NO_DELETE_TMP_DIR \
+    ENV JX_VALUE_PIPELINEUSER_EMAIL \
+    ENV JX_VALUE_PIPELINEUSER_TOKEN \
+    ENV HMAC_TOKEN="$JX_VALUE_PIPELINEUSER_TOKEN" \
+    ENV AZURE_NDTECH_K8S_TENANT_ID \
+    ENV AZURE_NDTECH_K8S_SP_ID \
+    ENV AZURE_NDTECH_K8S_SP_PASSWORD \
+    ENV AZURE_NDTECH_K8S_RESOURCE_GROUP_NAME \
+    ENV AZURE_NDTECH_TERRAFORM_STORAGE_ACCOUNT_KEY \
+    ENV AZURE_NDTECH_TERRAFORM_STORAGE_ACCOUNT_NAME \
+    ENV AZURE_NDTECH_TERRAFORM_STORAGE_CONTAINER_NAME \
+    ENV AZURE_NDTECH_K8S_SUBSCRIPTION_ID
+
+
+RUN \
+    # update
+    apk update \
+    # upgrade
+    && apk upgrade \
+    # install pre-requisites
+    && apk add curl \
+    && apk add zip \
+    && apk add unzip \
+    && apk add python \
+    && apk add git \
+    && apk add wget \
+    # install terraform
+    && apk add unzip \
+    && cd /root \
+    && curl "https://releases.hashicorp.com/terraform/0.13.4/terraform_0.13.4_linux_amd64.zip" -o "terraform_0.13.4_linux_amd64.zip" \
+    && unzip terraform_0.13.4_linux_amd64.zip \
+    && mv terraform /usr/local/bin \
+    # install kubectl
+    && cd /root \
+    && curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && mv kubectl /usr/local/bin \
+    && chmod +x /usr/local/bin/kubectl \
+    # install jenkins x
+    && curl -L "https://github.com/jenkins-x/jx/releases/download/$(curl --silent "https://github.com/jenkins-x/jx/releases/latest" | sed 's#.*tag/\(.*\)\".*#\1#')/jx-linux-amd64.tar.gz" | tar xzv "jx" \
+    && mv jx /usr/local/bin 
+
+RUN echo "test"
+COPY . .
+
+# neither ENTRYPOINT nor CMD can use the replacement syntax for some reason but it needs to match the context
+ENTRYPOINT "/root/execute.sh"

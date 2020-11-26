@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: node-pod
+  labels:
+    name: node-pod
+    app: todo-app
+
+spec:
+  containers:
+    - image: jeff22ndtech/simple-todo-app
+      name: node-pod
+      ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP

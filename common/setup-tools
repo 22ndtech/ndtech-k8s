@@ -1,0 +1,8 @@
+#!/bin/bash
+# install kubetail
+echo "authentiacate to digital ocean"
+doctl auth init -t $DIGITAL_OCEAN_INITIAL_TOKEN
+echo "connect to the ndtech-k8s-cluster"
+doctl kubernetes cluster kubeconfig save ndtech-k8s-cluster
+echo "installing kubetail"
+cp /usr/common/kubetail /usr/local/bin

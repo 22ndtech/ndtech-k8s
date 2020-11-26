@@ -1,0 +1,34 @@
+cluster:
+  clusterName: "ndtech-k8s-cluster"
+  environmentGitOwner: "ndtech-pipeline"
+  environmentGitPublic: true
+  project: "236bbd80-57aa-4c99-b57f-1637e6ee250f"
+  provider: kubernetes
+gitops: true
+environments:
+- key: dev
+- key: staging
+- key: production
+ingress:
+  domain: ""
+  externalDNS: false
+  tls:
+    email: ""
+    enabled: false
+    production: false
+kaniko: true
+secretStorage: local
+storage:
+  logs:
+    enabled: false
+    url: ""
+  reports:
+    enabled: false
+    url: ""
+  repository:
+    enabled: false
+    url: ""
+versionStream:
+  ref: "master"
+  url: https://github.com/jenkins-x/jenkins-x-versions.git
+webhook: lighthouse
