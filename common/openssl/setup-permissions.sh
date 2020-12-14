@@ -3,3 +3,4 @@ kubectl create rolebinding rob-read-flux-system --clusterrole=view --user=rob --
 kubectl create rolebinding rob-read-kube-system --clusterrole=view --user=rob --namespace=kube-system
 kubectl create rolebinding rob-read-ndtech --clusterrole=view --user=rob --namespace=ndtech
 kubectl create rolebinding rob-edit-rob --clusterrole=edit --user=rob --namespace=rob
+kubectl create rolebinding rob-namespace-lister --clusterrole=namespace-lister --user=rob --namespace=rob

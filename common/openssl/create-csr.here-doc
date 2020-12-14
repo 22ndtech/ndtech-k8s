@@ -2,11 +2,11 @@ cat <<EOF | kubectl apply -f -
 apiVersion: certificates.k8s.io/v1beta1
 kind: CertificateSigningRequest
 metadata:
-  name: rob-authentication
+  name: 22ndtech-admin-authentication
 spec:
   groups:
   - system:authenticated
-  request: $(cat ./rob.csr | base64 | tr -d '\n')
+  request: $(cat ./22ndtech-admin.csr | base64 | tr -d '\n')
   usages:
   - digital signature
   - key encipherment

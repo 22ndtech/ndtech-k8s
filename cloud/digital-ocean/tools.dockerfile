@@ -62,10 +62,22 @@ RUN \
   echo "set up alias for kubectl" \
   # set up an alias for kubectl
   && echo "alias k='kubectl'" > ./.bashrc
+  
+
+RUN curl -LO https://github.com/cli/cli/releases/download/v1.3.0/gh_1.3.0_linux_amd64.tar.gz -o gh.tar.gz
+RUN tar -xvf ./gh_1.3.0_linux_amd64.tar.gz -C /usr/bin
+ENV PATH=${PATH}:/usr/bin/gh_1.3.0_linux_amd64/bin
 
 COPY . .
 
 ENV DO_EXTERNAL_DNS_TOKEN=${DO_EXTERNAL_DNS_TOKEN}
+
+ENV GIT_USER_NAME="$GIT_USER_NAME"
+ENV GIT_USER_EMAIL="$GIT_USER_EMAIL"
+ENV GITHUB_USER="$GITHUB_USER"
+ENV GITHUB_TOKEN="$GITHUB_TOKEN"
+# GITHUB_ORGANIZATION will be the GITHUB_USER for a personal repo
+ENV GITHUB_ORGANIZATION="$GITHUB_ORGANIZATION"
   
 # neither ENTRYPOINT nor CMD can use the replacement syntax for some reason but it needs to match the context
 ENTRYPOINT "execute.sh"

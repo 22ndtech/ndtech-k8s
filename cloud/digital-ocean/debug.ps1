@@ -1,8 +1,7 @@
-./initialize-environment-variables.ps1
 docker run --rm `
   -v ${PWD}:/usr/src `
   -v $Env:NDTECH_K8S_HOME/common:/usr/src/common `
-  -v c:\data\openssl-certs:/openssl-certs `
+  -v D:\OneDrive\22ndTech\crets\22ndtech-admin\openssl-certs:/openssl-certs `
   -v C:\Projects\Git\22ndtech\ndtech\ndtech-k8s\common:/usr/common `
   -v D:\OneDrive\22ndTech\DigitalOcean\mongodb-user-name.txt:/mongodb-user-name.txt `
   -v D:\OneDrive\22ndTech\DigitalOcean\mongodb-user-password.txt:/mongodb-user-password.txt `
@@ -15,4 +14,9 @@ docker run --rm `
   -e JX_VALUE_PIPELINEUSER_USERNAME=$ENV:JX_VALUE_PIPELINEUSER_USERNAME `
   -e JX_VALUE_PIPELINEUSER_TOKEN=$ENV:JX_VALUE_PIPELINEUSER_TOKEN `
   -e DIGITAL_OCEAN_INITIAL_TOKEN="$Env:DIGITAL_OCEAN_INITIAL_TOKEN" `
+  -e GITHUB_USER=$ENV:GITHUB_USER `
+  -e GITHUB_TOKEN=$ENV:GITHUB_TOKEN `
+  -e GITHUB_ORGANIZATION="22ndtech" `
+  -e GIT_USER_NAME=$ENV:GIT_USER_NAME `
+  -e GIT_USER_EMAIL=$ENV:GIT_USER_EMAIL `
   -it --entrypoint /bin/bash ndtech-k8s-digital-ocean-tools:latest

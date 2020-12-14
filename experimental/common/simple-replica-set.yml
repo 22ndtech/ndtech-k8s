@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: simple-replica-set
+  labels:
+    name: simple-replica-set
+    env: exp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: simple-pod
+  template:
+    metadata:
+      labels:
+        name: simple-pod
+        env: exp
+    spec:
+      containers:
+      - name: simple-pod
+        image: nginx

@@ -1,0 +1,118 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jjhegedus" to get, watch and list namespaces globally
+kind: ClusterRoleBinding
+metadata:
+  name: jjhegedus-namespace-lister
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jjhegedus # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: namespace-lister # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jjhegedus" to get, watch and list namespaces globally
+kind: RoleBinding
+metadata:
+  name: jjhegedus-read-default
+  namespace: default
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jjhegedus # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: view # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jjhegedus" to get, watch and list namespaces globally
+kind: RoleBinding
+metadata:
+  name: jjhegedus-read-flux-system
+  namespace: flux-system
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jjhegedus # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: view # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jjhegedus" to get, watch and list namespaces globally
+kind: RoleBinding
+metadata:
+  name: jjhegedus-read-kube-system
+  namespace: kube-system
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jjhegedus # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: view # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jjhegedus" to get, watch and list namespaces globally
+kind: RoleBinding
+metadata:
+  name: jjhegedus-read-ndtech
+  namespace: ndtech
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jjhegedus # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: view # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jjhegedus" to get, watch and list namespaces globally
+kind: RoleBinding
+metadata:
+  name: jjhegedus-own-namespace-edit
+  namespace: jjhegedus
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jjhegedus # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: edit # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jjhegedus" to get, watch and list git-repositories globally
+kind: RoleBinding
+metadata:
+  name: jjhegedus-flux-admin
+  namespace: flux-system
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jjhegedus # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: flux-admin # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io

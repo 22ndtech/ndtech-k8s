@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  # "namespace" omitted since ClusterRoles are not namespaced
+  name: flux-admin
+rules:
+- apiGroups: ["source.toolkit.fluxcd.io"]
+  resources: ["gitrepositories"]
+  verbs: ["get", "watch", "list", "update"]
