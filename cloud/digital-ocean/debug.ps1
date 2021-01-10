@@ -1,7 +1,8 @@
+# one argument... the username
 docker run --rm `
   -v ${PWD}:/usr/src `
   -v $Env:NDTECH_K8S_HOME/common:/usr/src/common `
-  -v D:\OneDrive\22ndTech\crets\22ndtech-admin\openssl-certs:/openssl-certs `
+  -v D:\OneDrive\22ndTech\crets\$args\openssl-certs:/openssl-certs `
   -v C:\Projects\Git\22ndtech\ndtech\ndtech-k8s\common:/usr/common `
   -v D:\OneDrive\22ndTech\DigitalOcean\mongodb-user-name.txt:/mongodb-user-name.txt `
   -v D:\OneDrive\22ndTech\DigitalOcean\mongodb-user-password.txt:/mongodb-user-password.txt `

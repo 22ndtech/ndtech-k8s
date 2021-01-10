@@ -59,8 +59,9 @@ https://app.slack.com/client/T09NY5SBT/C9MBGQJRH/thread/C9MBGQJRH-1540820049.070
 external-dns-token: zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
 ### Create Secret - I'll load the secret into kubernetes from an environment variable to avoid storing it in the repo
-kubectl create secret generic -n ndtech external-dns-token --from-literal=token=$ENV:DO_EXTERNAL_DNS_TOKEN
-
+kubectl create secret generic -n external-dns external-dns-token --from-literal=token=$ENV:DO_EXTERNAL_DNS_TOKEN
+### or from bash
+kubectl create secret generic -n external-dns external-dns-token --from-literal=token=$DO_EXTERNAL_DNS_TOKEN
 
 
 # Google Kubernetes Engine
@@ -157,6 +158,8 @@ k create -f deploy/ -n ndtech
 k apply -f deploy/crds/mongodb.com_v1_mongodb_cr.yaml -n ndtech
 ### Failed because I didn't have SCRAM credentials set up - to set them up
 k create secret generic mongo-db-user-secret --from-file=password=/mongodb-user-password.txt
+### Creating a secret from a literal
+k -n mongo create secret generic mongo-db-user-secret --from-literal=password=<password>
 
 ## Delete the mongodb deployment
 k delete -f deploy/crds/mongodb.com_v1_mongodb_cr.yaml -n ndtech

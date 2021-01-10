@@ -1,13 +1,13 @@
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-# This role binding allows "testuser1" to get, watch and list namespaces globally
+# This role binding allows "kimhegedus" to get, watch and list namespaces globally
 kind: ClusterRoleBinding
 metadata:
-  name: testuser1-namespace-lister
+  name: kimhegedus-namespace-lister
 subjects:
 # You can specify more than one "subject"
 - kind: User
-  name: testuser1 # "name" is case sensitive
+  name: kimhegedus # "name" is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   # "roleRef" specifies the binding to a Role / ClusterRole
@@ -16,15 +16,15 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-# This role binding allows "testuser1" to get, watch and list namespaces globally
+# This role binding allows "kimhegedus" to get, watch and list namespaces globally
 kind: RoleBinding
 metadata:
-  name: testuser1-read-default
+  name: kimhegedus-read-default
   namespace: default
 subjects:
 # You can specify more than one "subject"
 - kind: User
-  name: testuser1 # "name" is case sensitive
+  name: kimhegedus # "name" is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   # "roleRef" specifies the binding to a Role / ClusterRole
@@ -33,15 +33,15 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-# This role binding allows "testuser1" to get, watch and list namespaces globally
+# This role binding allows "kimhegedus" to get, watch and list namespaces globally
 kind: RoleBinding
 metadata:
-  name: testuser1-own-namespace-edit
-  namespace: user-testuser1
+  name: kimhegedus-own-namespace-edit
+  namespace: user-kimhegedus
 subjects:
 # You can specify more than one "subject"
 - kind: User
-  name: testuser1 # "name" is case sensitive
+  name: kimhegedus # "name" is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   # "roleRef" specifies the binding to a Role / ClusterRole

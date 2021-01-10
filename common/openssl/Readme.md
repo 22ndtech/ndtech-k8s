@@ -13,6 +13,6 @@ create the cert using a here doc
 k get csr
 k certificate approve jjhegedus-authentication
 ### Create a copy of the certificate in the mounted /openssl-certs folder
-kubectl get csr 22ndtech-admin-authentication -o jsonpath='{.status.certificate}' | base64 -d > ./22ndtech-admin.crt
+kubectl get csr rob-authentication -o jsonpath='{.status.certificate}' | base64 -d > ./rob.crt
 ### Create a copy of the kubernetes configuration file (~/.kube/config) and update the username
 ### Create a roles and bindings file by copying another user's and updating the permissions accordingly
