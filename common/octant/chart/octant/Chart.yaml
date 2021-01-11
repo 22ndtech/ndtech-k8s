@@ -1,0 +1,5 @@
+apiVersion: v2
+name: octant
+description: Helm chart for octant
+type: application
+version: 0.0.1

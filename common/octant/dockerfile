@@ -1,0 +1,12 @@
+FROM alpine:3.12
+COPY . /.
+WORKDIR /.
+# Install curl
+RUN apk update \
+  && apk add curl
+
+RUN curl -LO "https://github.com/vmware-tanzu/octant/releases/download/v0.16.3/octant_0.16.3_Linux-arm64.tar.gz" \
+&& tar zxvf ./octant_0.16.3_Linux-arm64.tar.gz \
+&& mv ./octant_0.16.3_Linux-arm64/octant /usr/local/bin
+EXPOSE 80
+CMD OCTANT_LISTENER_ADDR=0.0.0.0:8001 octant --kubeconfig ./.kube/config --disable-open-browser

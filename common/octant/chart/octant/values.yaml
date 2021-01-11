@@ -1,0 +1,9 @@
+# environment defaults internally to development
+# however, consumers can override it using a custom values file.
+environment: development
+deployment:
+  replicas: 1
+  minReadySeconds: 3
+  namespace: default
+  imageVersion: 0.0.1
+  containerPort: 5000
