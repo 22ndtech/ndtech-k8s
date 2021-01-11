@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: skaffold-image-leeroy-web
+  namespace: ndtech-staging
+spec:
+  type: image
+  params:
+    - name: url
+      value: index.docker.io/v1/22ndtech/skaffold-image-leeroy-web
