@@ -37,7 +37,7 @@ spec:
             memory: "64Mi"
         volumeMounts:
           - name: kube-config
-            mountPath: "/.kube"
+            mountPath: /.kube
             readOnly: true
       volumes:
       - name: kube-config

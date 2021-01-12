@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: octant
+  namespace: default
+spec:
+  selector:
+    app: octant
+  ports:
+    - port: {{ .Values.deployment.containerPort }}
+      targetPort: {{ .Values.deployment.containerPort }}
