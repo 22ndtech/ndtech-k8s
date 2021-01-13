@@ -17,4 +17,4 @@ docker run `
 -e GIT_REPOSITORY_NAME="ndtech" `
 -v ${Env:CERTS_PATH}:/.kube `
 -p 8001:8001 `
---rm 22ndtech/octant:latest
+--rm 22ndtech/octant:0.0.1

@@ -1,0 +1,1 @@
+docker tag 22ndtech/octant:latest 22ndtech/octant:0.0.2
