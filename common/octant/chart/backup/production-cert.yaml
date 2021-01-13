@@ -1,0 +1,16 @@
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: octant-jaackd-reality-ca
+#   namespace: default
+# spec:
+#   secretName: letsencrypt
+#   dnsNames:
+#   - octant.jaackdreality.com
+#   issuerRef:
+#     name: letsencrypt
+#     kind: ClusterIssuer
+#     group: cert-manager.io
+#   isCA: true
+#   commonName: octant.jaackdreality.com

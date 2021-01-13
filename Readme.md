@@ -297,13 +297,6 @@ ACCOUNT_KEY=$(az storage account keys list --resource-group "ndtech-terraform-re
 az storage container create --name $AZURE_NDTECH_TERRAFORM_STORAGE_CONTAINER_NAME --account-name $AZURE_NDTECH_TERRAFORM_STORAGE_ACCOUNT_NAME --account-key $AZURE_NDTECH_TERRAFORM_STORAGE_ACCOUNT_KEY
 
 
-# FluxCD
-## Instal v2
-curl -s https://toolkit.fluxcd.io/install.sh | sh
-## Bootstrap ndtech-staging repo
-flux bootstrap github --owner="22ndtech" --repository="ndtech-flux-fleet" --branch="main" --path="ndtech-staging" --private=false team="ndtech-k8s-admin" --verbose --log-level="debug"
-
-
 # Docker
 ## Remove all containers in powershell
 docker rm $(docker ps -a -q)
@@ -318,3 +311,10 @@ cat /proc/version
 ## k get ns flux-system -o json > /usr/src/flux-system.json
 ## Remove kubernetes from the list of finalizers in the spec section
 ### k replace --raw "/api/v1/namespaces/flux-system/finalize" -f /usr/src/flux-system.json
+
+
+# FluxCD
+## Instal v2
+curl -s https://toolkit.fluxcd.io/install.sh | sh
+## Bootstrap ndtech-staging repo
+flux bootstrap github --owner="22ndtech" --repository="ndtech-flux-fleet" --branch="main" --path="ndtech-staging" --private=false team="ndtech-k8s-admin" --verbose --log-level="debug"

@@ -1,5 +1,4 @@
 FROM alpine:3.12
-ENV OCTANT_LISTENER_ADDR="0.0.0.0:8001"
 WORKDIR /.
 # Install curl
 RUN apk update \
