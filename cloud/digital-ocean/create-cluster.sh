@@ -3,8 +3,8 @@ echo "starting /digital/create-cluster.sh : CONTEXT_PATH = ${CONTEXT_PATH} : NDT
 
 cp -r /usr/src/.config /root
 
-doctl kubernetes cluster create ndtech-k8s-cluster \
-  --version 1.19.3-do.1 \
+doctl kubernetes cluster create ndtech \
+  --version 1.20.2-do.0 \
   --count 2 \
   --size s-4vcpu-8gb \
   --region sfo2

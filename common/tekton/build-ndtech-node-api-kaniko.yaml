@@ -3,19 +3,19 @@ apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
   name: ndtech-node-api-staging-kaniko-1
-  namespace: ndtech-staging
+  namespace: ndtech
 spec:
-  serviceAccountName: tekton
+  serviceAccountName: tekton-triggers-admin
   taskRef:
-    name: build-docker-image-from-git-source
+    name: build-docker-image
   params:
     - name: pathToDockerFile
       value: Dockerfile
     - name: pathToContext
-      value: $(resources.inputs.docker-source.path) #configure: may change according to your source
+      value: $(resources.inputs.source-repo.path) #configure: may change according to your source
   resources:
     inputs:
-      - name: docker-source
+      - name: source-repo
         resourceRef:
           name: ndtech-node-api-git
     outputs:

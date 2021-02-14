@@ -1,0 +1,26 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: create-webhook-run
+  namespace: ndtech
+spec:
+  taskRef:
+    name: create-webhook
+  params:
+  - name: GitHubOrg
+    value: "22ndtech"
+  - name: GitHubUser
+    value: "22ndtech-admin"
+  - name: GitHubRepo
+    value: "ndtech-node-api"
+  - name: GitHubSecretName
+    value: webhook-secret
+  - name: GitHubAccessTokenKey
+    value: token
+  - name: GitHubSecretStringKey
+    value: secret
+  - name: ExternalDomain
+    value: tekton.jaackdreality.com
+  timeout: 1000s
+  serviceAccountName: tekton-triggers-createwebhook
